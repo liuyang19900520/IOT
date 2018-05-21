@@ -9,10 +9,11 @@ from flask_pagedown import PageDown
 from flask_gravatar import Gravatar
 from flask_babel import Babel, gettext as _
 from config import config
+from flask_mongoengine import MongoEngine
 
 basedir = path.abspath(path.dirname(__file__))
 
-db = SQLAlchemy()
+db = MongoEngine()
 babel = Babel()
 bootstrap = Bootstrap()
 pagedown = PageDown()
@@ -23,6 +24,7 @@ login_manager.login_view = 'auth.login'
 
 def create_app(config_name='default'):
     app = Flask(__name__)
+    app.debug = True
     app.config.from_object(config[config_name])
 
     db.init_app(app)

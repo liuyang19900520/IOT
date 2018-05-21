@@ -3,7 +3,7 @@
 from flask import render_template, request, flash, redirect, url_for, current_app, abort, jsonify, Response, json
 from . import jsont
 from .. import db
-from ..models import Post, Comment
+# from ..models import Post, Comment
 from flask.ext.login import login_required, current_user
 from flask_babel import gettext as _
 

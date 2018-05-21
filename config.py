@@ -9,6 +9,11 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_RECORD_QUERIES = True
     BABEL_DEFAULT_LOCALE = 'zh'
+    MONGODB_SETTINGS = {
+        'db': 'iotblog',
+        'host': '192.168.25.129',
+        'port': 27017
+    }
 
     @staticmethod
     def init_app(app):
@@ -19,7 +24,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-                              'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
+                              'mongodb://192.168.25.129:27017/iotblog'
 
 
 class TestingConfig(Config):
