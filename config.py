@@ -9,10 +9,10 @@ class Config:
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_RECORD_QUERIES = True
     BABEL_DEFAULT_LOCALE = 'zh'
+
     MONGODB_SETTINGS = {
-        'db': 'iotblog',
-        'host': '192.168.25.129',
-        'port': 27017
+
+        'host': 'mongodb+srv://liuyang19900520:1990052099@cluster0-835zx.mongodb.net/test?retryWrites=true'
     }
 
     @staticmethod
@@ -23,8 +23,7 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-                              'mongodb://192.168.25.129:27017/iotblog'
+    SQLALCHEMY_DATABASE_URI ='mongodb+srv://liuyang19900520:1990052099@cluster0-835zx.mongodb.net/iot?retryWrites=true'
 
 
 class TestingConfig(Config):
@@ -36,7 +35,7 @@ class TestingConfig(Config):
 
 
 class Production(Config):
-    DEBUG=True
+    DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
                               'postgresql://ray:?@localhost/blog-db'
 

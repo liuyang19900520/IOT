@@ -1,15 +1,16 @@
 # coding: utf-8
 
-from flask import Flask, request
 from os import path
+
+from flask import Flask, request
+from flask_babel import Babel
 from flask_bootstrap import Bootstrap
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, current_user
-from flask_pagedown import PageDown
 from flask_gravatar import Gravatar
-from flask_babel import Babel, gettext as _
-from config import config
+from flask_login import LoginManager, current_user
 from flask_mongoengine import MongoEngine
+from flask_pagedown import PageDown
+
+from config import config
 
 basedir = path.abspath(path.dirname(__file__))
 
@@ -37,11 +38,10 @@ def create_app(config_name='default'):
 
     from app.auth import auth as auth_blueprint
     from app.main import main as main_blueprint
-    from app.jsontest import jsont as json_blueprint
+
 
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
     app.register_blueprint(main_blueprint, static_folder='static')
-    app.register_blueprint(json_blueprint)
 
     @app.template_test('current_link')
     def is_current_link(link):

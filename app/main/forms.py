@@ -1,12 +1,8 @@
 # coding=utf-8
 
-from flask_wtf import Form
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
-from flask_pagedown.fields import PageDownField
-from flask_babel import gettext as _
 from flask_mongoengine.wtf import model_form
-from ..models import Post
+
+from ..models import User, Role, Comment, Post
 
 # class PostForm(Form):
 #     title = StringField(label=_(u"标题"), validators=[DataRequired()])
@@ -19,3 +15,6 @@ from ..models import Post
 #     submit = SubmitField(_(u'发表'))
 
 PostForm = model_form(Post)
+CommentForm = model_form(Comment)
+RoleForm = model_form(Role)
+UserForm = model_form(User)

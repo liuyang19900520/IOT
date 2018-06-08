@@ -1,16 +1,9 @@
-from datetime import datetime
+from uuid import uuid4
 
-from flask import json
-from flask_login import UserMixin, AnonymousUserMixin
-from flask_marshmallow import Marshmallow
-from flask_marshmallow.fields import fields
-from markdown import markdown
-from sqlalchemy.ext.declarative import DeclarativeMeta
+from mongoengine import ReferenceField
 
-from . import db, login_manager
-from flask_mongoengine.wtf import model_form
-from wtforms import Form
-from wtforms.fields import BooleanField, TextField
+from . import db
+
 
 # class Role(db.Model):
 #     __tablename__ = 'roles'
@@ -119,21 +112,31 @@ from wtforms.fields import BooleanField, TextField
 #             # a json-encodable dict
 #             return fields
 
-class User(db.Document):
-    email = db.StringField(required=True)
-    first_name = db.StringField(max_length=50)
-    last_name = db.StringField(max_length=50)
+class Role(db.Document):
+    id = db.StringField()
+    name = db.StringField()
+    created = db.DateTimeField()
 
-class Content(db.EmbeddedDocument):
-    text = db.StringField()
-    lang = db.StringField(max_length=3)
+
+class User(db.Document):
+    id = db.StringField()
+    name = db.StringField()
+    email = db.EmailField()
+    password = db.StringField()
+    role_id = db.UUIDField()
+    created = db.DateTimeField()
+
+
+class Comment(db.Document):
+    body = db.StringField()
+    post_id = db.StringField(required=True)
+    user_id = db.StringField(required=True)
+    created = db.DateTimeField()
+
 
 class Post(db.Document):
-    title = db.StringField(max_length=120, required=True)
-    author = db.ReferenceField(User)
-    tags = db.ListField(db.StringField(max_length=30))
-    content = db.EmbeddedDocumentField(Content)
-
-class Student(db.Document):
-    name=db.StringField(max_length=120, required=True)
-    age=db.IntField()
+    user_id = db.StringField(required=True)
+    title = db.StringField()
+    body = db.StringField()
+    body_html = db.StringField()
+    created = db.DateTimeField()
