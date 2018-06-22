@@ -140,3 +140,13 @@ class Post(db.Document):
     body = db.StringField()
     body_html = db.StringField()
     created = db.DateTimeField()
+
+
+class ApiException(Exception):
+    """将本地错误包装成一个异常实例供抛出"""
+
+    def __init__(self, message, status=404, payload=None):
+        self.message = message
+        self.status = status
+        self.payload = payload
+
